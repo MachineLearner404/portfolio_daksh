@@ -1,0 +1,13 @@
+runtime: python310
+
+entrypoint: streamlit run app.py --server.port=8080 --server.enableCORS=false
+
+instance_class: F1  # free tier
+
+env_variables:
+  PORT: 8080
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 1
+  max_instances: 1

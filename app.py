@@ -187,12 +187,37 @@ elif selected == "Research":
     st.markdown("**1. Differential Protection of Power Transformers using Discrete Wavelet Transform and CNN**")
     st.markdown("IEEE TPEC 2025, Texas, USA")
     st.markdown("DOI: [10.1109/TPEC63981.2025.10906891](https://doi.org/10.1109/TPEC63981.2025.10906891)")
+
     try:
         with open("assets/tpec_paper.pdf", "rb") as file:
-            st.download_button("Download PDF", file, file_name="TPEC_Paper.pdf")
+            tpec_data = file.read()
+            b64_pdf = base64.b64encode(tpec_data).decode()
+            href = f"""
+                <a href="data:application/pdf;base64,{b64_pdf}" download="TPEC_Paper.pdf" class="custom-download-btn">
+                    Download PDF
+                </a>
+                <style>
+                    .custom-download-btn {{
+                        display: inline-block;
+                        padding: 8px 16px;
+                        background-color: white;
+                        color: black;
+                        text-decoration: none;
+                        font-weight: bold;
+                        border-radius: 6px;
+                        transition: background-color 0.3s, color 0.3s;
+                        border: 2px solid transparent;
+                    }}
+                    .custom-download-btn:hover {{
+                        background-color: white;
+                        color: grey;
+                        border: 2px solid white;
+                    }}
+                </style>
+            """
+            st.markdown(href, unsafe_allow_html=True)
     except FileNotFoundError:
         st.warning("TPEC paper PDF not found at 'assets/tpec_paper.pdf'.")
-
 
     st.markdown("**2. Automated Detection of Periodic Leg Movement (PLM) with Electromyogram Signal Using CNN**")
     st.markdown("IEEE ICCCNT 2025, IIT Indore, India")
@@ -203,13 +228,19 @@ elif selected == "Research":
     st.markdown("**Structural Investigation and Enriched Catalysis of Cu-Complex-Encapsulated Microporous Catalyst...**")
     st.markdown("Published in ChemPhysChem, 2025")
     st.markdown("DOI: [10.1002/cphc.202400950](https://doi.org/10.1002/cphc.202400950)")
+
     try:
         with open("assets/chemphyschem_paper.pdf", "rb") as file:
-            st.download_button("Download PDF", file, file_name="ChemPhysChem_Paper.pdf")
+            chem_data = file.read()
+            b64_pdf2 = base64.b64encode(chem_data).decode()
+            href2 = f"""
+                <a href="data:application/pdf;base64,{b64_pdf2}" download="ChemPhysChem_Paper.pdf" class="custom-download-btn">
+                    Download PDF
+                </a>
+            """
+            st.markdown(href2, unsafe_allow_html=True)
     except FileNotFoundError:
         st.warning("ChemPhysChem paper PDF not found at 'assets/chemphyschem_paper.pdf'.")
-
-
 # ---------- CERTIFICATES SECTION ----------
 elif selected == "Certificates":
     st.markdown("<div class='section-title'>Certificates</div>", unsafe_allow_html=True)
@@ -234,10 +265,84 @@ elif selected == "Skills":
 # ---------- CONTACT SECTION ----------
 elif selected == "Contact":
     st.markdown("<div class='section-title'>Contact Me</div>", unsafe_allow_html=True)
-    st.markdown("<div class='contact-links'>", unsafe_allow_html=True)
-    # Applying span for explicit color control on the static text part of the links
-    st.markdown("\U0001F4E7 <span style='color: #F5F7FA;'>**Email:**</span> [vyawharedaksh@gmail.com](mailto:vyawharedaksh@gmail.com)")
-    st.markdown("\U0001F517 <span style='color: #F5F7FA;'>**LinkedIn:**</span> [linkedin.com/in/daksh-vyawhare-19934a179](https://www.linkedin.com/in/daksh-vyawhare-19934a179)")
-    st.markdown("\U0001F4BB <span style='color: #F5F7FA;'>**GitHub:**</span> [github.com/MachineLearner404](https://github.com/MachineLearner404)")
-    st.markdown("\U0001F52C <span style='color: #F5F7FA;'>**ResearchGate:**</span> [researchgate.net/profile/Daksh-Vyawhare](https://www.researchgate.net/profile/Daksh-Vyawhare)")
-    st.markdown("</div>", unsafe_allow_html=True)
+
+    contact_links = """
+    <style>
+        .contact-item {
+            margin: 12px 0;
+            font-size: 18px;
+            color: #F5F7FA;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            display: inline-block;
+            font-size: 20px;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.3) rotate(5deg);
+        }
+
+        .contact-link {
+            color: #FFD700;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .contact-link::after {
+            content: attr(data-tooltip);
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 4px 8px;
+            position: absolute;
+            z-index: 1;
+            top: 125%;
+            left: 0;
+            transition: opacity 0.3s ease;
+            font-size: 12px;
+        }
+
+        .contact-link:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
+    <div class='contact-item'>
+        <span class='contact-icon'>📧</span>
+        <a class='contact-link' data-tooltip="Email me here!" href="mailto:vyawharedaksh@gmail.com">vyawharedaksh@gmail.com</a>
+    </div>
+    <div class='contact-item'>
+        <span class='contact-icon'>🔗</span>
+        <a class='contact-link' data-tooltip="Let's connect on LinkedIn!" href="https://www.linkedin.com/in/daksh-vyawhare-19934a179" target="_blank">Linkedin.</a>
+    </div>
+    <div class='contact-item'>
+        <span class='contact-icon'>💻</span>
+        <a class='contact-link' data-tooltip="Explore my GitHub!" href="https://github.com/MachineLearner404" target="_blank">Github</a>
+    </div>
+    <div class='contact-item'>
+        <span class='contact-icon'>🔬</span>
+        <a class='contact-link' data-tooltip="View my research on ResearchGate!" href="https://www.researchgate.net/profile/Daksh-Vyawhare" target="_blank">ResearchGate</a>
+    </div>
+    """
+    st.markdown(contact_links, unsafe_allow_html=True)
